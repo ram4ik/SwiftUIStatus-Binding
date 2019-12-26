@@ -9,8 +9,31 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State private var rating = 1
+    
     var body: some View {
-        Text("Hello, World!")
+        VStack {
+            RatingView(rating: $rating)
+            Text("Rating: \(rating)")
+                .padding()
+        }.padding()
+    }
+}
+
+struct RatingView: View {
+    @Binding var rating: Int
+    
+    var body: some View {
+        HStack {
+            ForEach(1..<6) { value in
+                Button(action: {
+                    self.rating = value
+                }) {
+                    Image(systemName: value <= self.rating ? "star.fill" : "star")
+                        .font(.largeTitle)
+                }
+            }
+        }
     }
 }
 
